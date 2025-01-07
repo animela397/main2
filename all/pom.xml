@@ -82,7 +82,7 @@
                             <groupId>com.practice.test1</groupId>
                             <artifactId>aem-practicetest1-deployment.all</artifactId>
                             <type>zip</type>
-                            <target>/apps/practicemain-packages/application/install</target>
+                            <target>/apps/practicemain-packages/install</target>
                         </embedded>
                         <embedded>
                             <groupId>com.practice.test2</groupId>
@@ -213,8 +213,8 @@
             <groupId>com.practice.test1</groupId>
             <artifactId>aem-practicetest1-deployment.all</artifactId>
             <type>zip</type>
-            <version>1.2.9-SNAPSHOT</version>
-        </dependency>
+            <version>1.2.12-SNAPSHOT</version>
+        <scope>provided</scope></dependency>
         <dependency>
             <groupId>com.practice.test2</groupId>
             <artifactId>aem-practicetest2-deployment</artifactId>
