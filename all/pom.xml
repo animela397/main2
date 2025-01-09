@@ -85,12 +85,6 @@
                             <target>/apps/practicemain-packages/install</target>
                         </embedded>
                         <embedded>
-                            <groupId>com.practice.test2</groupId>
-                            <artifactId>aem-practicetest2-deployment.all</artifactId>
-                            <type>zip</type>
-                            <target>/apps/practicemain-packages/application/install</target>
-                        </embedded>
-                        <embedded>
                             <groupId>com.practice.main</groupId>
                             <artifactId>netcentric-acl-config</artifactId>
                             <type>zip</type>
@@ -215,18 +209,6 @@
             <type>zip</type>
             <version>1.2.13-SNAPSHOT</version>
         <scope>provided</scope></dependency>
-        <dependency>
-            <groupId>com.practice.test2</groupId>
-            <artifactId>aem-practicetest2-deployment</artifactId>
-            <version>0.0.7-SNAPSHOT</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>com.practice.test2</groupId>
-            <artifactId>aem-practicetest2-deployment.all</artifactId>
-            <type>zip</type>
-            <version>0.0.7-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>com.practice.main</groupId>
             <artifactId>netcentric-acl-config</artifactId>
