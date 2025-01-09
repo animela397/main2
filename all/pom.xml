@@ -207,7 +207,7 @@
             <groupId>com.practice.test1</groupId>
             <artifactId>aem-practicetest1-deployment.all</artifactId>
             <type>zip</type>
-            <version>1.2.13-SNAPSHOT</version>
+            <version>1.2.14-SNAPSHOT</version>
         <scope>provided</scope></dependency>
         <dependency>
             <groupId>com.practice.main</groupId>
