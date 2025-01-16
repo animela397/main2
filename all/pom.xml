@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
  |  Copyright 2019 Adobe Systems Incorporated
  |
@@ -13,9 +14,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- ====================================================================== -->
@@ -24,7 +23,7 @@
     <parent>
         <groupId>com.practice.main</groupId>
         <artifactId>aem-practice-main-deployment</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.36-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -41,6 +40,26 @@
     <!-- ====================================================================== -->
     <build>
         <plugins>
+             <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.1.2</version>
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>initialize</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.basedir}/maven-repo</outputDirectory>
+                        <excludeTransitive>true</excludeTransitive>
+                        <useRepositoryLayout>true</useRepositoryLayout>
+                        <excludeScope>system</excludeScope>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
             <!-- ====================================================================== -->
             <!-- V A U L T   P A C K A G E   P L U G I N S                              -->
             <!-- ====================================================================== -->
@@ -56,41 +75,14 @@
                     <packageType>container</packageType>
                     <!-- skip sub package validation for now as some vendor packages like CIF apps will not pass -->
                     <skipSubPackageValidation>true</skipSubPackageValidation>
+                    <failOnDependencyErrors>true</failOnDependencyErrors>
+                    <failOnMissingEmbed>true</failOnMissingEmbed>
                     <embeddeds>
-                        <!--<embedded>
-                             <groupId>com.practice.main</groupId>
-                             <artifactId>aem-practice-main-deployment.ui.apps</artifactId>
-                             <type>zip</type>
-                             <target>/apps/practicemain-packages/application/install</target>
-                         </embedded>
-                         <embedded>
-                             <groupId>com.practice.main</groupId>
-                             <artifactId>aem-practice-main-deployment.core</artifactId>
-                             <target>/apps/practicemain-packages/application/install</target>
-                         </embedded>
-                         <embedded>
-                             <groupId>com.practice.main</groupId>
-                             <artifactId>aem-practice-main-deployment.ui.content</artifactId>
-                             <type>zip</type>
-                             <target>/apps/practicemain-packages/content/install</target>
-                         </embedded>
-                         <embedded>
-                             <groupId>com.practice.main</groupId>
-                             <artifactId>aem-practice-main-deployment.ui.config</artifactId>
-                             <type>zip</type>
-                             <target>/apps/practicemain-packages/application/install</target>
-                         </embedded>-->
                         <embedded>
                             <groupId>com.practice.test1</groupId>
-                            <artifactId>aem-practicetest1-deployment</artifactId>
+                            <artifactId>aem-practicetest1-deployment.all</artifactId>
                             <type>zip</type>
-                            <target>/apps/practicemain-packages/application/install</target>
-                        </embedded>
-                        <embedded>
-                            <groupId>com.practice.test2</groupId>
-                            <artifactId>aem-practicetest2-deployment</artifactId>
-                            <type>zip</type>
-                            <target>/apps/practicemain-packages/application/install</target>
+                            <target>/apps/practicemain-packages/install</target>
                         </embedded>
                         <embedded>
                             <groupId>com.practice.main</groupId>
@@ -102,15 +94,39 @@
                             <groupId>biz.netcentric.cq.tools.accesscontroltool</groupId>
                             <artifactId>accesscontroltool-package</artifactId>
                             <type>zip</type>
-                            <target>/apps/practicemain-packages/application/install</target>
+                            <target>/apps/practicemain-vendor-packages/application/install</target>
                         </embedded>
                         <embedded>
                             <groupId>org.gs4tr.globallink.adaptors</groupId>
                             <artifactId>gs4tr-globallink-adaptors-aem.all</artifactId>
                             <type>zip</type>
                             <target>/apps/practicemain-packages/application/install</target>
-                        </embedded>
-                    </embeddeds>
+                      </embedded>
+                    <embedded>
+                      <groupId>com.adobe.acs</groupId>
+                      <artifactId>acs-aem-commons-all</artifactId>
+                      <type>zip</type>
+                      <target>/apps/practicemain-packages/install</target>
+                      </embedded>
+                      <embedded>
+                        <groupId>com.coresecure</groupId>
+                        <artifactId>brightcove.all</artifactId>
+                        <type>zip</type>
+                        <target>/apps/practicemain-packages/install</target>
+                      </embedded>
+                      <embedded>
+                        <groupId>com.adobe.acs</groupId>
+                        <artifactId>acs-aem-tools-content</artifactId>
+                        <type>zip</type>
+                        <target>/apps/practicemain-packages/install</target>
+                      </embedded>
+                      <embedded>
+                        <groupId>com.adobe.acs.bundles</groupId>
+                        <artifactId>com.adobe.acs.bundles.netty</artifactId>
+                        <type>zip</type>
+                        <target>/apps/practicemain-packages/install</target>
+                      </embedded>
+              </embeddeds>
                 </configuration>
             </plugin>
             <plugin>
@@ -211,47 +227,25 @@
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
-        <!-- <dependency>
-             <groupId>com.practice.main</groupId>
-             <artifactId>aem-practice-main-deployment.ui.apps</artifactId>
-             <version>${project.version}</version>
-             <type>zip</type>
-         </dependency>
-         <dependency>
-             <groupId>com.practice.main</groupId>
-             <artifactId>aem-practice-main-deployment.ui.content</artifactId>
-             <version>${project.version}</version>
-             <type>zip</type>
-         </dependency>
-         <dependency>
-             <groupId>com.practice.main</groupId>
-             <artifactId>aem-practice-main-deployment.ui.config</artifactId>
-             <version>${project.version}</version>
-             <type>zip</type>
-         </dependency>-->
         <dependency>
             <groupId>com.practice.test1</groupId>
             <artifactId>aem-practicetest1-deployment</artifactId>
-            <version>1.1.0</version>
-            <type>zip</type>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/aem-practicetest1-deployment.all-1.1.0.zip</systemPath>
+            <version>1.2.13-SNAPSHOT</version>
+            <type>pom</type>
         </dependency>
-        <dependency>
-            <groupId>com.practice.test2</groupId>
-            <artifactId>aem-practicetest2-deployment</artifactId>
-            <version>${project.version}</version>
+         <dependency>
+            <groupId>com.practice.test1</groupId>
+            <artifactId>aem-practicetest1-deployment.all</artifactId>
             <type>zip</type>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/aem-practicetest2-deployment.all-${project.version}.zip</systemPath>
-        </dependency>
+            <version>1.2.14-SNAPSHOT</version>
+        <scope>provided</scope></dependency>
         <dependency>
             <groupId>com.practice.main</groupId>
             <artifactId>netcentric-acl-config</artifactId>
-            <version>${project.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
             <type>zip</type>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/netcentric-acl-config-${project.version}.zip</systemPath>
+            <systemPath>${project.basedir}/lib/netcentric-acl-config-0.0.1-SNAPSHOT.zip</systemPath>
         </dependency>
         <dependency>
             <groupId>biz.netcentric.cq.tools.accesscontroltool</groupId>
@@ -266,5 +260,19 @@
             <version>2.3.0</version>
             <type>zip</type>
         </dependency>
-    </dependencies>
+      <dependency><groupId>com.adobe.acs</groupId><artifactId>acs-aem-commons-all</artifactId><type>zip</type><version>6.9.6</version><classifier>cloud</classifier><scope>provided</scope></dependency><dependency><groupId>com.coresecure</groupId><artifactId>brightcove.all</artifactId><type>zip</type><version>6.1.10</version><scope>system</scope><systemPath>${project.basedir}/lib/com/coresecure/brightcove.all/brightcove.all-6.1.10.zip</systemPath></dependency><dependency><groupId>com.adobe.acs</groupId><artifactId>acs-aem-tools-content</artifactId><type>zip</type><version>1.0.2</version><scope>provided</scope></dependency><dependency><groupId>com.adobe.acs.bundles</groupId><artifactId>com.adobe.acs.bundles.netty</artifactId><type>zip</type><version>1.0.2</version><scope>system</scope><systemPath>${project.basedir}/lib/com/adobe/acs/bundles/com.adobe.acs.bundles.netty/com.adobe.acs.bundles.netty-1.0.2.zip</systemPath></dependency>
+  </dependencies>
+  <repositories>
+        <repository>
+            <id>local-repo</id>
+            <url>file://${project.basedir}/maven-repo</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+<properties><download.com.coresecure.brightcove.all>https://github.com/brightcove/Adobe-AEM-Brightcove-Connector/releases/download/6.1.10-cloud/brightcove.all-6.1.10.zip</download.com.coresecure.brightcove.all><download.com.adobe.acs.bundles.com.adobe.acs.bundles.netty>https://repo1.maven.org/maven2/com/adobe/acs/bundles/com.adobe.acs.bundles.netty/1.0.2/com.adobe.acs.bundles.netty-1.0.2.zip</download.com.adobe.acs.bundles.com.adobe.acs.bundles.netty></properties>
 </project>
